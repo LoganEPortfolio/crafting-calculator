@@ -542,3 +542,295 @@
     text-align: left;
   }
 }
+
+/* ============================================
+   CRAFTING GRID
+   ============================================ */
+.crafting-grid__wrapper {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.crafting-grid__type-badge {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 4px;
+}
+
+.crafting-grid__layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+}
+
+/* ---- Crafting Table Grid ---- */
+.crafting-grid__table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.crafting-grid__table-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.crafting-grid__cells {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  background: #2a1f0e;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  border: 2px solid #5a4a2a;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- Grid Cells ---- */
+.grid-cell {
+  width: 52px;
+  height: 52px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition);
+  position: relative;
+}
+
+.grid-cell--empty {
+  background: #1a1408;
+  border: 1px solid #3a3020;
+}
+
+.grid-cell--fuel {
+  border-style: dashed;
+}
+
+.grid-cell--filled {
+  border: 2px solid;
+  cursor: help;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1),
+              0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.grid-cell--filled:hover {
+  transform: scale(1.1);
+  z-index: 1;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.15),
+              inset 0 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+.grid-cell--result {
+  width: 56px;
+  height: 56px;
+}
+
+.grid-cell__abbr {
+  font-size: 0.65rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+/* ---- Arrow ---- */
+.crafting-grid__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crafting-grid__arrow-icon {
+  font-size: 1.8rem;
+  filter: grayscale(0.3);
+}
+
+/* ---- Result ---- */
+.crafting-grid__result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.crafting-grid__result-cell {
+  position: relative;
+  background: #1a2a0e;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 2px solid #4a6a2a;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.crafting-grid__result-count {
+  position: absolute;
+  bottom: 2px;
+  right: 4px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #fff;
+  font-family: var(--font-mono);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8),
+               -1px -1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* ---- Furnace ---- */
+.crafting-grid__furnace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.crafting-grid__furnace-slots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: #2a2020;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 2px solid #5a3a3a;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.crafting-grid__furnace-flame {
+  font-size: 1.2rem;
+  animation: flicker 1s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+  from { opacity: 0.7; transform: scale(0.95); }
+  to   { opacity: 1;   transform: scale(1.05); }
+}
+
+/* ---- Legend ---- */
+.crafting-grid__legend {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.crafting-grid__legend-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.crafting-grid__legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.crafting-grid__legend-entry {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.crafting-grid__legend-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.crafting-grid__legend-name {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Nested Grids (in tree) ---- */
+.crafting-grid--mini .crafting-grid__cells {
+  padding: 4px;
+  gap: 2px;
+}
+
+.crafting-grid--mini .grid-cell {
+  width: 32px;
+  height: 32px;
+}
+
+.crafting-grid--mini .grid-cell__abbr {
+  font-size: 0.45rem;
+}
+
+.crafting-grid--mini .grid-cell--result {
+  width: 36px;
+  height: 36px;
+}
+
+.crafting-grid--mini .crafting-grid__arrow-icon {
+  font-size: 1.2rem;
+}
+
+.crafting-grid--mini .crafting-grid__result-count {
+  font-size: 0.6rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .crafting-grid__layout {
+    gap: 1rem;
+  }
+
+  .grid-cell {
+    width: 44px;
+    height: 44px;
+  }
+
+  .grid-cell--result {
+    width: 48px;
+    height: 48px;
+  }
+
+  .grid-cell__abbr {
+    font-size: 0.55rem;
+  }
+
+  .crafting-grid__arrow-icon {
+    font-size: 1.4rem;
+  }
+}
+
+/* ============================================
+   INTERMEDIATE GRIDS LIST
+   ============================================ */
+.crafting-grid__intermediates {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.crafting-grid__intermediates .section {
+  margin-bottom: 0;
+}
+
+.crafting-grid__intermediates .section__title {
+  font-size: 0.95rem;
+}

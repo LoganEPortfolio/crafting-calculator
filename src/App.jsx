@@ -4,6 +4,7 @@ import QuantityInput from './components/QuantityInput';
 import MaterialTable from './components/MaterialTable';
 import StackBreakdown from './components/StackBreakdown';
 import RecipeTree from './components/RecipeTree';
+import CraftingGrid from './components/CraftingGrid';
 import useCraftingCalculator from './hooks/useCraftingCalculator';
 
 import './styles/global.css';
@@ -95,6 +96,12 @@ export default function App() {
             📊 Materials
           </button>
           <button
+            className={`tab ${activeTab === 'grid' ? 'tab--active' : ''}`}
+            onClick={() => setActiveTab('grid')}
+          >
+            🔧 Crafting
+          </button>
+          <button
             className={`tab ${activeTab === 'stacks' ? 'tab--active' : ''}`}
             onClick={() => setActiveTab('stacks')}
           >
@@ -104,7 +111,7 @@ export default function App() {
             className={`tab ${activeTab === 'tree' ? 'tab--active' : ''}`}
             onClick={() => setActiveTab('tree')}
           >
-            🌳 Recipe Tree
+            🌳 Tree
           </button>
         </div>
       )}
@@ -112,6 +119,13 @@ export default function App() {
       {/* Tab Content */}
       {hasResults && activeTab === 'table' && (
         <MaterialTable calculation={calculation} />
+      )}
+
+      {hasResults && activeTab === 'grid' && (
+        <CraftingGridTab
+          selectedItemId={selectedItemId}
+          calculation={calculation}
+        />
       )}
 
       {hasResults && activeTab === 'stacks' && (
@@ -132,6 +146,34 @@ export default function App() {
           <div className="empty-state__text">Select an item to get started</div>
           <div className="empty-state__hint">
             Choose a category, pick an item, and set the quantity
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Crafting Grid Tab — shows the main item grid plus all intermediate grids
+ */
+function CraftingGridTab({ selectedItemId, calculation }) {
+  const { intermediates } = calculation;
+
+  return (
+    <div>
+      {/* Main item crafting grid */}
+      <CraftingGrid itemId={selectedItemId} />
+
+      {/* Intermediate crafting grids */}
+      {intermediates.length > 0 && (
+        <div style={{ marginTop: '1.5rem' }}>
+          <h2 className="section__title">
+            <span>🔗</span> Intermediate Recipe Grids
+          </h2>
+          <div className="crafting-grid__intermediates">
+            {intermediates.map(({ item }) => (
+              <CraftingGrid key={item.id} itemId={item.id} />
+            ))}
           </div>
         </div>
       )}
